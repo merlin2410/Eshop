@@ -16,9 +16,12 @@ public class CustomerTransformer {
     }
 
     public static CustomerResponseDto customerToCustomerResponseDto(Customer customer){
-        String message = customer.getName()+" has been successfully added";
+
         return CustomerResponseDto.builder()
                 .name(customer.getName())
-                .message(message).build();
+                .email(customer.getEmail())
+                .mobile(customer.getMobile()).build();
     }
+
+
 }

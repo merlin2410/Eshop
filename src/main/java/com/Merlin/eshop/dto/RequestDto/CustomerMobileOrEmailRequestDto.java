@@ -1,4 +1,4 @@
-package com.Merlin.eshop.dto.ResponseDto;
+package com.Merlin.eshop.dto.RequestDto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,9 +8,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class CustomerResponseDto {
-
-    String name;
-    String email;
+public class CustomerMobileOrEmailRequestDto {
     String mobile;
+    String email;
 }
