@@ -74,4 +74,28 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return CustomerTransformer.customerToCustomerResponseDto(customer);
     }
+
+    @Override
+    public List<CustomerResponseDto> getCustomersGreaterThanAge(int age) {
+        List<Customer> customerList = customerRepository.findAll();
+        List<CustomerResponseDto> customerResponseDtoList = new ArrayList<>();
+        for(Customer customer: customerList){
+            if(customer.getAge()>age){
+                customerResponseDtoList.add(CustomerTransformer.customerToCustomerResponseDto(customer));
+            }
+        }
+        return customerResponseDtoList;
+    }
+
+    @Override
+    public List<CustomerResponseDto> getCustomersLessThanAge(int age) {
+        List<Customer> customerList = customerRepository.findAll();
+        List<CustomerResponseDto> customerResponseDtoList = new ArrayList<>();
+        for(Customer customer: customerList){
+            if(customer.getAge()<age){
+                customerResponseDtoList.add(CustomerTransformer.customerToCustomerResponseDto(customer));
+            }
+        }
+        return customerResponseDtoList;
+    }
 }

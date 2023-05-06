@@ -45,4 +45,18 @@ public class CustomerController {
         CustomerResponseDto customerResponseDto = customerService.getCustomerByMailOrMobile(customerMobileOrEmailRequestDto);
         return new ResponseEntity<>(customerResponseDto,HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/get-greater-than-age")
+    public ResponseEntity getCustomersGreaterThanAge(@RequestParam("age") int age){
+        //Get list of all customers greater than the given age
+        List<CustomerResponseDto> customerResponseDtoList = customerService.getCustomersGreaterThanAge(age);
+        return new ResponseEntity<>(customerResponseDtoList,HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/get-less-than-age")
+    public ResponseEntity getCustomersLessThanAge(@RequestParam("age") int age){
+        //Get list of all customers less than the given age
+        List<CustomerResponseDto> customerResponseDtoList = customerService.getCustomersLessThanAge(age);
+        return new ResponseEntity<>(customerResponseDtoList,HttpStatus.ACCEPTED);
+    }
 }

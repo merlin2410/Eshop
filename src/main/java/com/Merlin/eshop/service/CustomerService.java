@@ -15,4 +15,8 @@ public interface CustomerService {
     public List<CustomerResponseDto> viewAllCustomers() throws CustomerNotFoundException;
 
     public CustomerResponseDto getCustomerByMailOrMobile(CustomerMobileOrEmailRequestDto customerMobileOrEmailRequestDto) throws CustomerNotFoundException;
+
+    public List<CustomerResponseDto> getCustomersGreaterThanAge(int age);
+
+    public List<CustomerResponseDto> getCustomersLessThanAge(int age);
 }

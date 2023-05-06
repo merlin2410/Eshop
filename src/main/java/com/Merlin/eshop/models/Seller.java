@@ -22,6 +22,7 @@ public class Seller {
 
     String name;
 
+
     int age;
 
     @Column(unique = true)
