@@ -38,8 +38,8 @@ public class CustomerController {
         //Returns customer using email id or mobile number. If customer not present, it throws an exception
         if((customerMobileOrEmailRequestDto.getMobile()==null &&
            customerMobileOrEmailRequestDto.getEmail()==null) ||
-                (customerMobileOrEmailRequestDto.getMobile().length()==0 &&
-                        customerMobileOrEmailRequestDto.getEmail().length()==0)){
+                ((customerMobileOrEmailRequestDto.getMobile()!=null && customerMobileOrEmailRequestDto.getMobile().length()==0) &&
+                        (customerMobileOrEmailRequestDto.getEmail()!=null && customerMobileOrEmailRequestDto.getEmail().length()==0))){
             return new ResponseEntity<>("Mobile/Email Not Entered",HttpStatus.BAD_REQUEST);
         }
         CustomerResponseDto customerResponseDto = customerService.getCustomerByMailOrMobile(customerMobileOrEmailRequestDto);

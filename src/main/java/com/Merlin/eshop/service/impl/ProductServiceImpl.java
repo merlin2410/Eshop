@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class ProductServiceImp implements ProductService {
+public class ProductServiceImpl implements ProductService {
     @Autowired
     SellerRepository sellerRepository;
 

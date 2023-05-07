@@ -5,6 +5,7 @@ import com.Merlin.eshop.dto.RequestDto.CustomerRequestDto;
 import com.Merlin.eshop.dto.ResponseDto.CustomerResponseDto;
 import com.Merlin.eshop.exception.CustomerNotFoundException;
 import com.Merlin.eshop.exception.MobileNumberOrEmailAlreadyRegisteredException;
+import com.Merlin.eshop.models.Cart;
 import com.Merlin.eshop.models.Customer;
 import com.Merlin.eshop.repository.CustomerRepository;
 import com.Merlin.eshop.service.CustomerService;
@@ -30,6 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
 
         try {
             Customer customer = CustomerTransformer.customerRequestDtoToCustomer(customerRequestDto);
+            Cart cart = new Cart();
+            cart.setCustomer(customer);
+            customer.setCart(cart);
             Customer savedCustomer = customerRepository.save(customer);
             return savedCustomer.getName()+" has been successfully added";
         }
@@ -71,6 +75,9 @@ public class CustomerServiceImpl implements CustomerService {
             catch (Exception e){
                 throw new CustomerNotFoundException("Customer not found");
             }
+        }
+        if(customer==null){
+            throw new CustomerNotFoundException("Customer not found");
         }
         return CustomerTransformer.customerToCustomerResponseDto(customer);
     }
