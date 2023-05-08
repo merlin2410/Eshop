@@ -59,4 +59,25 @@ public class CustomerController {
         List<CustomerResponseDto> customerResponseDtoList = customerService.getCustomersLessThanAge(age);
         return new ResponseEntity<>(customerResponseDtoList,HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/card/{cardType}")
+    public ResponseEntity getCustomersByCardType(@PathVariable("cardType") String cardType) throws Exception{
+        //Get list of all customers with a given card type
+        List<CustomerResponseDto> customerResponseDtoList = customerService.getCustomerByCardType(cardType);
+        return new ResponseEntity<>(customerResponseDtoList,HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity updateCustomer(@RequestBody CustomerRequestDto customerRequestDto) throws Exception{
+        //Update existing customer. If customer does not exist throw an exception
+        CustomerResponseDto customerResponseDto = customerService.updateCustomer(customerRequestDto);
+        return new ResponseEntity<>(customerResponseDto,HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteCustomer(@RequestBody CustomerMobileOrEmailRequestDto customerMobileOrEmailRequestDto){
+        //Delete a customer. If customer doesn't exist do nothing. No need for exceptions
+        String message = customerService.deleteCustomer(customerMobileOrEmailRequestDto);
+        return new ResponseEntity<>(message,HttpStatus.ACCEPTED);
+    }
 }

@@ -19,4 +19,10 @@ public interface CustomerService {
     public List<CustomerResponseDto> getCustomersGreaterThanAge(int age);
 
     public List<CustomerResponseDto> getCustomersLessThanAge(int age);
+
+    public List<CustomerResponseDto> getCustomerByCardType(String cardType) throws Exception;
+
+    public CustomerResponseDto updateCustomer(CustomerRequestDto customerRequestDto) throws Exception;
+
+    public String deleteCustomer(CustomerMobileOrEmailRequestDto customerMobileOrEmailRequestDto);
 }
