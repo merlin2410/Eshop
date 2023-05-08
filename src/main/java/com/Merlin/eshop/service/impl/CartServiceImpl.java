@@ -8,10 +8,7 @@ import com.Merlin.eshop.exception.EmptyCartException;
 import com.Merlin.eshop.exception.InvalidCardException;
 import com.Merlin.eshop.exception.ProductOutOfStockException;
 import com.Merlin.eshop.models.*;
-import com.Merlin.eshop.repository.CardRepository;
-import com.Merlin.eshop.repository.CartRepository;
-import com.Merlin.eshop.repository.CustomerRepository;
-import com.Merlin.eshop.repository.OrderRepository;
+import com.Merlin.eshop.repository.*;
 import com.Merlin.eshop.service.CartService;
 import com.Merlin.eshop.service.OrderService;
 import com.Merlin.eshop.transformers.CartTransformer;
@@ -37,6 +34,8 @@ public class CartServiceImpl implements CartService {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    ItemRepository itemRepository;
     @Override
     public CartResponseDto addToCart(Item item, int customerId) {
 
@@ -47,7 +46,8 @@ public class CartServiceImpl implements CartService {
         cart.getItems().add(item);
         item.setCart(cart);
 
-        return CartTransformer.CartToCartResponseDto(cartRepository.save(cart));
+        Cart savedCart = cartRepository.save(cart);
+        return CartTransformer.CartToCartResponseDto(savedCart);
     }
 
     @Override
