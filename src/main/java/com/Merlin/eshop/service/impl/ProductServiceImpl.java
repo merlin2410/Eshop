@@ -3,7 +3,9 @@ package com.Merlin.eshop.service.impl;
 import com.Merlin.eshop.Enum.ProductStatus;
 import com.Merlin.eshop.dto.RequestDto.ProductRequestDto;
 import com.Merlin.eshop.dto.ResponseDto.ProductResponseDto;
+import com.Merlin.eshop.exception.ProductOutOfStockException;
 import com.Merlin.eshop.exception.SellerNotFoundException;
+import com.Merlin.eshop.models.Item;
 import com.Merlin.eshop.models.Product;
 import com.Merlin.eshop.models.Seller;
 import com.Merlin.eshop.repository.ProductRepository;
@@ -49,5 +51,18 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return productResponseDtoList;
+    }
+
+    @Override
+    public void decreaseQuantity(Item item) throws Exception {
+        Product product = item.getProduct();
+        if(item.getRequiredQuantity()>product.getAvailableQuantity()){
+            throw new ProductOutOfStockException("Product is Out of Stock!");
+        }
+        product.setAvailableQuantity(product.getAvailableQuantity()-item.getRequiredQuantity());
+        if(product.getAvailableQuantity()==0){
+            product.setProductStatus(ProductStatus.OUT_OF_STOCK);
+        }
+
     }
 }

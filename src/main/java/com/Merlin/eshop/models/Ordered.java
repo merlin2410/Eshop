@@ -4,6 +4,7 @@ import com.Merlin.eshop.Enum.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Ordered {
     @Column(unique = true)
     String orderNumber;
 
+    @CreationTimestamp
     Date date;
 
     int totalCost;

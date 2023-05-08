@@ -1,7 +1,9 @@
 package com.Merlin.eshop.controller;
 
+import com.Merlin.eshop.dto.RequestDto.CheckoutCartRequestDto;
 import com.Merlin.eshop.dto.RequestDto.ItemRequestDto;
 import com.Merlin.eshop.dto.ResponseDto.CartResponseDto;
+import com.Merlin.eshop.dto.ResponseDto.OrderResponseDto;
 import com.Merlin.eshop.models.Item;
 import com.Merlin.eshop.service.CartService;
 import com.Merlin.eshop.service.ItemService;
@@ -29,5 +31,12 @@ public class CartController {
         Item item = itemService.addItem(itemRequestDto);
         CartResponseDto cartResponseDto = cartService.addToCart(item, itemRequestDto.getCustomerId());
         return new ResponseEntity<>(cartResponseDto, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/checkout")
+    public ResponseEntity checkoutCart(@RequestBody CheckoutCartRequestDto checkoutCartRequestDto) throws Exception{
+        //Checkout from cart. Throws exceptions for invalid customer, out of stock products, empty cart, invalid card details
+        OrderResponseDto orderResponseDto = cartService.checkoutCart(checkoutCartRequestDto);
+        return new ResponseEntity<>(orderResponseDto,HttpStatus.ACCEPTED);
     }
 }
