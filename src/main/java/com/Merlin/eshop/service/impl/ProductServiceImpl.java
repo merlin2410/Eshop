@@ -65,4 +65,33 @@ public class ProductServiceImpl implements ProductService {
         }
 
     }
+
+    @Override
+    public List<ProductResponseDto> getProductsOfGivenCategoryLessThanPrice(String category, int price) {
+        List<ProductResponseDto> productResponseDtoList = getProductsOfGivenCategory(category);
+        List<ProductResponseDto> productResponseDtoLessThanPriceList = new ArrayList<>();
+        for(ProductResponseDto productResponseDto: productResponseDtoList){
+            if(productResponseDto.getPrice()<price){
+                productResponseDtoLessThanPriceList.add(productResponseDto);
+            }
+        }
+        return productResponseDtoLessThanPriceList;
+    }
+
+    @Override
+    public List<ProductResponseDto> getAllProductsBySeller(String sellerEmail) throws Exception {
+        Seller seller;
+        try {
+            seller = sellerRepository.findByEmail(sellerEmail);
+        }
+        catch (Exception e){
+            throw new SellerNotFoundException("Invalid email/ Seller Not Found");
+        }
+        List<Product> productList = seller.getProductList();
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+        for(Product product: productList){
+            productResponseDtoList.add(ProductTransformer.ProductToProductResponseDto(product));
+        }
+        return productResponseDtoList;
+    }
 }

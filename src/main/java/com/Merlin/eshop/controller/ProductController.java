@@ -32,4 +32,16 @@ public class ProductController {
         return new ResponseEntity<>(productResponseDtoList,HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/category-price-less-than")
+    public ResponseEntity getProductsOfGivenCategoryLessThanPrice(@RequestParam("category") String category, @RequestParam("price") int price){
+        List<ProductResponseDto> productResponseDtoList = productService.getProductsOfGivenCategoryLessThanPrice(category,price);
+        return new ResponseEntity<>(productResponseDtoList,HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/get-all-by-seller-mail")
+    public ResponseEntity getAllProductsBySeller(@RequestParam("sellerEmail") String sellerEmail) throws Exception{
+        List<ProductResponseDto> productResponseDtoList = productService.getAllProductsBySeller(sellerEmail);
+        return new ResponseEntity<>(productResponseDtoList,HttpStatus.ACCEPTED);
+    }
+
 }

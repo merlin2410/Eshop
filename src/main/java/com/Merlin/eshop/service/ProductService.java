@@ -14,4 +14,8 @@ public interface ProductService {
     public List<ProductResponseDto> getProductsOfGivenCategory(String category);
 
     public void decreaseQuantity(Item item) throws Exception;
+
+    public List<ProductResponseDto> getProductsOfGivenCategoryLessThanPrice(String category, int price);
+
+    public List<ProductResponseDto> getAllProductsBySeller(String sellerEmail) throws Exception;
 }
